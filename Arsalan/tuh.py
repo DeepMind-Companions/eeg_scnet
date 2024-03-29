@@ -30,7 +30,7 @@ class TUHDataset:
                 args=[batchsize],
                 output_signature=(
                     tf.TensorSpec(shape=(21, 42001), dtype=tf.float32),
-                    tf.TensorSpec(shape=(), dtype=tf.bool)
+                    tf.TensorSpec(shape=(2), dtype=tf.bool)
                 )
             )
 
