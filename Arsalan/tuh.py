@@ -26,7 +26,7 @@ class TUHDataset:
                 self.generate_data,
                 args=[batchsize],
                 output_signature=(
-                    tf.TensorSpec(shape=(21, None), dtype=tf.float32),
+                    tf.TensorSpec(shape=(21, 42001), dtype=tf.float32),
                     tf.TensorSpec(shape=(), dtype=tf.bool)
                 )
             )
