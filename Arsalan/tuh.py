@@ -1,5 +1,6 @@
 ''' The TUH dataset is accessed in tensorflow using a generator object '''
 import tensorflow as tf
+import numpy as np
 
 from .Preprocessing.preprocessing import return_data
 from .ReadingFiles.GetFiles import get_files
@@ -11,7 +12,9 @@ class TUHDataset:
 
     def generate_individual(self, filename, outputY):
         data = return_data(filename).get_data()
-        return data, outputY
+        if (outputY):
+            return data, np.array([0, 1])
+        return data, np.array([1, 0])
 
 
     def generate_data(self, batchsize):
