@@ -1,8 +1,8 @@
 ''' The TUH dataset is accessed in tensorflow using a generator object '''
 import tensorflow as tf
 
-from Preprocessing.preprocessing import return_data
-from ReadingFiles.GetFiles import get_files
+from .Preprocessing.preprocessing import return_data
+from .ReadingFiles.GetFiles import get_files
 from joblib import Parallel, delayed
 
 class TUHDataset:
