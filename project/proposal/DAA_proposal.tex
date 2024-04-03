@@ -9,6 +9,8 @@
     right=2cm
 }
 \usepackage{ragged2e}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{graphicx}
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
@@ -99,10 +101,75 @@ There have been many studies that have used various machine learning algorithms 
 \section{Proposed Methodology}
 Based on the above literature review, we have decided to go with the SCNet model for the classification of EEG files, as it is both light-weight (having only about 45,000 parameters), and due to its high accuracy in performing the classification of EEG files into normal and abnormal. (Wu et al., 2023)
 
-\section{Pseudocode}
+\begin{algorithm}
+\caption{SCNet Algorithm}
+    \begin{algorithmic}[1]
+    \Procedure{Classify}{Raw EEG} \Comment{The Raw EEG is input}
+        \State Total Channels $\gets 21$
+        \State Input Format: EEG data Channels $[e_i]$ where $i \gets 0$ to $21$
+        \State $e_i \gets [e_j]$ where $j \gets 0$ to $n$ where $n$ is the number of timestamps
+        \State 
+        \State Output Format: Class of the EEG in binary (Abnormal/Normal)
+        \State
+
+        \State Output $\gets$ \Call{Preprocess}{Raw EEG} \Comment{Preprocess the Raw EEG}
+        \State Output $\gets$ \Call{SpatialFeatures}{Output}
+        \State Output $\gets$ \Call{TemporalFeatures}{Output}
+        \State Class $\gets$ \Call{Classify}{Output}
+        \State \textbf{return} Class\Comment{Returns the class of the classified EEG}
+    \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Temporal Net Algorithm}
+    \begin{algorithmic}[1]
+    \Procedure{Classify}{Raw EEG} \Comment{The Raw EEG is input}
+        \State Total Channels $\gets 21$
+        \State Input Format: EEG data Channels $[e_i]$ where $i \gets 0$ to $21$
+        \State $e_i \gets [e_j]$ where $j \gets 0$ to $n$ where $n$ is the number of timestamps
+        \State 
+        \State Output Format: Class of the EEG in binary (Abnormal/Normal)
+        \State
+
+        \State Output $\gets$ \Call{Preprocess}{Raw EEG} \Comment{Preprocess the Raw EEG}
+        \State Output $\gets$ \Call{TemporalFeatures}{Output}
+        \State Class $\gets$ \Call{Classify}{Output}
+        \State \textbf{return} Class\Comment{Returns the class of the classified EEG}
+    \EndProcedure
+    \end{algorithmic}
+    
+\end{algorithm}
 
 
+\begin{algorithm}
+    \caption{Feature Extraction using CNNs}
+    \begin{algorithmic}[1]
+        \Procedure{Features}{raw}
+        \State Input Format: $[e_{ij}]$ where $i \gets 0$ to $h_0$ and $j \gets 0$ to $w_0$
+        \State Output Format: $[e_{ijk}]$ where $i \gets 0$ to $h_1$, $j \gets 0$ to $w_1$ and $k \gets 0$ to $d$
+
+        \Comment Depth is an extra dimension in the output due to multiple features
+        \State $w \gets width$, $h \gets height$ and $d \gets depth$
+        \State Apply Kernels on $[e_{xy}] \in [e_{ij}]$ 
+
+        \State \Comment Kernels are applied on the input data
+        \State $[e_{ij}]_0 = [w_{ij}] * [e_{ij}] + b$
+        \State \Comment Kernels multiply weights to each element in the data and add bias
+        \State $[e_{ijk}] \gets$ \textbf{concat}($[e_{ij}]_y$) \Comment Concatenate on z-axis
+        \State \Comment These outputs are represented in the output matrix
+
+        \State \textbf{return} $[e_{ijk}]$
+
+
+        \EndProcedure
+        
+    \end{algorithmic}
+\end{algorithm}
+
+\newpage
 \section{Conclusion}
+In conclusion, the SCNet model has been chosen for the classification of EEG files as it has shown to be effective in classifying EEG files into normal and abnormal. The model is light-weight and has a high accuracy of 90.57\%. (Wu et al., 2023)
 
 \section{Reference}
 \hypertarget{refs}{}
