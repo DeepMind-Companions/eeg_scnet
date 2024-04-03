@@ -1,0 +1,119 @@
+% Create a document for a project proposal
+\documentclass[11pt]{article}
+% Packages
+\usepackage{geometry}
+\geometry{
+    top=1.5cm,
+    bottom=1.5cm,
+    left=2cm,
+    right=2cm
+}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+% Title
+\title{\textbf{Design \& Analysis of Algorithms Proposal \\ \vspace{5mm} EEG classification using Deep Learning Algorithms}}
+\author{\textbf{Team Members} \vspace{1mm} \\ Muhammad Athar (408369) \\ Muhammad Arsalan Khan (410963) \vspace{5mm} \\ \textbf{Class: }BESE - 13A}
+
+\begin{document}
+\maketitle
+
+\justifying
+\section{Introduction}
+The semester project for Design and Analysis of Algorithms aims to tackle the problem of classifying EEG (Electroencephalography) files as either normal or abnormal.
+
+\section{Problem Statement}
+Electroencephalography (EEG) is a non-invasive method used to record electrical activity of the brain. However, manual analysis of EEG data is time consuming and requires expertise of highly trained neurologists. Unfortunately, there is a lack of clinically certified neurologists in developing countries especially in Pakistan. Therefore, the aim of this project is to develop a deep learning model that can classify EEG files as either normal or abnormal. Such deep learning model would help in the initial screening of EEG files and would reduce the workload of neurologists.
+
+\section{Literature Review}
+There have been many studies that have used various machine learning algorithms to classify EEG files like AlexNet followed by Support Vector Machines(SVMs). A recent study published in 2023 used a novel model for the classification of EEGs which was named SCNet (Spatial Feature Fused Convolutional Network) which has been able to achieve an accuracy of 90.57\% and has also performed well in other metrics like F1-Score and G-mean. (Wu et al., 2023)
+
+\section{Proposed Methodology}
+Based on the above literature review, we have decided to go with the SCNet model for the classification of EEG files, as it is both light-weight (having only about 45,000 parameters), and due to its high accuracy in performing the classification of EEG files into normal and abnormal. (Wu et al., 2023)
+
+\section{Pseudocode}
+
+
+\section{Conclusion}
+
+\section{Reference}
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-WU2023105059}{}}%
+Wu, Tao, Yujie Fan, Yunning Zhong, Xiu Cheng, Xiangzeng Kong, and Lifei
+Chen. 2023. {``SCNet: A Spatial Feature Fused Convolutional Network for
+Multi-Channel EEG Pathology Detection.''} \emph{Biomedical Signal
+Processing and Control} 86: 105059.
+\url{https://doi.org/10.1016/j.bspc.2023.105059}.
+
+\end{CSLReferences}
+
+\end{document}
