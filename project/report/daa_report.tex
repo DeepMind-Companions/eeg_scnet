@@ -97,6 +97,9 @@ pdfcreator={LaTeX via pandoc}}
 The semester project for Design and Analysis of Algorithms aims to tackle the problem of classifying EEG (Electroencephalography) files as either normal or abnormal.
 Electroencephalography (EEG) is a non-invasive method used to record electrical activity of the brain. However, manual analysis of EEG data is time consuming and requires expertise of highly trained neurologists. Unfortunately, there is a lack of clinically certified neurologists in developing countries especially in Pakistan. Therefore, the aim of this project is to develop a deep learning model that can classify EEG files as either normal or abnormal. Such deep learning model would help in the initial screening of EEG files and would reduce the workload of neurologists.
 
+\subsection{Selection of Algorithm}
+For the classification of EEG recordings, we have looked into many architectures like ResNet 18 and Temporal Networks, but among them, SCNet seems to give the best results according to literature. So we have decided to implement this architecture for this task. The model will be trained on the TUH EEG Corpus, taken from Temple University, which is one of the largest publicly available dataset of EEG Recordings.
+
 \subsection{Timeline}
 The project is estimated to take a further of 2-3 months to be completely finalized. However, our first model of SCNet had been prepared and trained upon.
 The timeline for the project is as follows:
@@ -371,22 +374,25 @@ All the above equations are used to calculate values for all times t=1,2,...,T. 
     \centering
     \includegraphics[width=0.7\textwidth]{silm.png}
     \caption{Spatial Information Learning Module (SILM)}
+    \label{fig:silm}
 \end{figure}
-Figure 1 shows that SILM applies GSP(Global standard deviation Pooling), GAP(Global Average Pooling), and GMP(Global Max Pooling) across all channels, followed by a dropout layer of 0.05 on each. They are then concatenated.
+Figure \ref{fig:silm} shows that SILM applies GSP(Global standard deviation Pooling), GAP(Global Average Pooling), and GMP(Global Max Pooling) across all channels, followed by a dropout layer of 0.05 on each. They are then concatenated.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{mffm.png}
     \caption{Multi-feature Fusion Module (MFFM)}
+    \label{fig:mffm}
 \end{figure}
-Figure 2 shows that the MFFM involves two consecutive 1D convolutional layers, followed by Batch Normalization and ReLU activation function on each. Before applying the next convolutional layer, the output of the previous layer is concatenated.
+Figure \ref{fig:mffm} shows that the MFFM involves two consecutive 1D convolutional layers, followed by Batch Normalization and ReLU activation function on each. Before applying the next convolutional layer, the output of the previous layer is concatenated.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.59\textwidth]{model.png}
     \caption{SCNet Architecture}
+    \label{fig:model}
 \end{figure}
-Figure 3 shows that the entire SCNet architecture, with Average and Max Pooling in between layers, to reduce the input dimensions at each stage. At the end, a softmax classifier is used to classify the EEG data.
+Figure \ref{fig:model} shows that the entire SCNet architecture, with Average and Max Pooling in between layers, to reduce the input dimensions at each stage. At the end, a softmax classifier is used to classify the EEG data.
 
 \subsection{Pseudocodes}
 
@@ -591,13 +597,13 @@ Figure 3 shows that the entire SCNet architecture, with Average and Max Pooling 
 
 \subsection{Problems Encountered}
 One of the main problem we encountered is in the training of the model. Even after obtaining computational resources, the dataset (TUH EEG Corpus) was still very large (About 50 GB) which can't be loaded into the RAM all at once and trained on. For this we started preprocessing the data and storing it in tf records. This helped in training the model by loading the data on the fly.
-However, even after we trained the model, we encountered another setback, which was that we were uanble to get a good performance on the evaluation set, even though it was giving accuracies upto 99\% on the training data. The accuracy on the evaluation set never went above 50\%. We are still trying to resolve this issue till date.
+However, even after we trained the model, we encountered another setback, which was that we were uanble to get a good performance on the evaluation set, even though it was giving accuracies upto 99\% on the training data(which should not be possible). The accuracy on the evaluation set never went above 50\%. It could be that the model is unable to generalize to the evaluation set. We are still trying to resolve this issue till date.
 
 
 \section{Conclusion}
 In conclusion, the SCNet model has been chosen for the classification of EEG files as it has shown to be effective in classifying EEG files into normal and abnormal. The model is light-weight and has a high accuracy of 90.57\%. (Wu et al., 2023)
 
-\section{Reference}
+\section{References}
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
     \leavevmode\vadjust pre{\hypertarget{ref-WU2023105059}{}}%
@@ -607,6 +613,23 @@ In conclusion, the SCNet model has been chosen for the classification of EEG fil
     Processing and Control} 86: 105059.
     \url{https://doi.org/10.1016/j.bspc.2023.105059}.
 
+\end{CSLReferences}
+
+\vspace{0.5cm}
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-he2015deep}{}}%
+He, Kaiming, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. 2015. {``Deep
+Residual Learning for Image Recognition.''}
+\url{https://arxiv.org/abs/1512.03385}.
+
+\end{CSLReferences}
+
+\vspace{0.5cm}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-schirrmeister2017deep}{}}%
+Schirrmeister RT, Springenberg JT, Fiederer LDJ, Glasstetter M, Eggensperger K, Tangermann M, Hutter F, Burgard W, Ball T. {``Deep learning with convolutional neural networks for EEG decoding and visualization.''} Hum Brain Mapp. 2017 Nov;38(11):5391-5420. doi: 10.1002/hbm.23730. Epub 2017 Aug 7. PMID: 28782865; PMCID: PMC5655781.
+\url{}
 \end{CSLReferences}
 
 \end{document}
