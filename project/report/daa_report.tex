@@ -154,7 +154,7 @@ In most of the algorithms that are used to classify EEG signals, it was found ou
     \item The skip connections were added to the output of the residual blocks.
 \end{enumerate}
 
-\subsection{Equations}
+\subsubsection{Equations}
 \[
 \text{output} = \text{input} + \text{F}(\text{input})
 \]
@@ -170,7 +170,7 @@ This just shows the basic convolutional block.
 \]
 The entire residual block can be represented by the above equation.
 
-\subsection{Diagrams}
+\subsubsection{Diagrams}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{resnet.png}
@@ -180,7 +180,7 @@ The entire residual block can be represented by the above equation.
 The ResNet architecture is shown in Figure \ref{fig:resnet_arch}. It contains a basic block followed by 4 residual blocks. The skip connections are added to the output of the residual blocks.
 
 
-\subsection{Pseudocodes}
+\subsubsection{Pseudocodes}
 \begin{algorithm}[H]
   \caption{Basic Block for ResNet}
   \begin{algorithmic}[1]
@@ -262,7 +262,7 @@ Another algorithm we implemented was using TCN (Temporal Convolutional Networks)
     \item The model used a softmax classifier to classify the EEG data.
 \end{enumerate}
 
-\subsection{Equations}
+\subsubsection{Equations}
 \[
 y_t = \sum_{k=1}^{K} w_k \cdot x_{t-k}
 \]
@@ -273,7 +273,7 @@ y_t = \sum_{k=1}^{K} w_k \cdot x_{(d \cdot t) - k}
 \]
 In this equation, \( d \) is the dilation factor, which controls the spacing between elements in the convolutional kernel.
 
-\subsection{Diagrams}
+\subsubsection{Diagrams}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{temporal.png}
@@ -282,7 +282,7 @@ In this equation, \( d \) is the dilation factor, which controls the spacing bet
 \end{figure}
 The Temporal block is shown in Figure \ref{fig:temporal_arch}. This shows how time based data is collected from previous layers and input into the next layers.
 
-\subsection{Pseudocodes}
+\subsubsection{Pseudocodes}
 \begin{algorithm}[H]
   \caption{CausalConv1d}
   \begin{algorithmic}[1]
@@ -357,7 +357,7 @@ The Temporal block is shown in Figure \ref{fig:temporal_arch}. This shows how ti
   \item The model is trained using the Adam optimizer with a learning rate of 1e-3 and a batch size of 32. The model is trained for 60 epochs.
 \end{enumerate}
 
-\subsection{Equations}
+\subsubsection{Equations}
 \[ s_{gap}^t = \frac{1}{C} \sum_{c=1}^{C} x_{ct} \]
 Above equation is used to calculate the average of the EEG data across all channels at time t.
 
@@ -369,7 +369,7 @@ Above equation is used to calculate the standard deviation of the EEG data acros
 \newline
 All the above equations are used to calculate values for all times t=1,2,...,T. C = 21 is the number of channels selected.
 
-\subsection{Diagrams}
+\subsubsection{Diagrams}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{silm.png}
@@ -394,7 +394,7 @@ Figure \ref{fig:mffm} shows that the MFFM involves two consecutive 1D convolutio
 \end{figure}
 Figure \ref{fig:model} shows that the entire SCNet architecture, with Average and Max Pooling in between layers, to reduce the input dimensions at each stage. At the end, a softmax classifier is used to classify the EEG data.
 
-\subsection{Pseudocodes}
+\subsubsection{Pseudocodes}
 
 \begin{algorithm}[H]
   \caption{Preprocessing}
