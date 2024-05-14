@@ -141,6 +141,204 @@ The timeline for the project is as follows:
 
 
 \section{Contributions} 
+
+\subsection{ResNet18 Algorithm}
+In most of the algorithms that are used to classify EEG signals, it was found out that features from different levels of abstractions seemed to be useful to accurately classify the EEG data. Hence, for this purpose, we decided to implement the ResNet18 architecture to classify our EEG data.
+\begin{enumerate}
+    \item The ResNet Algorithm used data that was already preprocessed and saved in NPZ file format.
+    \item The model contained a basic block that had 2 convolutional layers, followed by a batch normalization layer and a ReLU activation function.
+    \item The model then contained 4 residual blocks, each containing 2 convolutional layers, followed by a batch normalization layer and a ReLU activation function.
+    \item The skip connections were added to the output of the residual blocks.
+\end{enumerate}
+
+\subsection{Equations}
+\[
+\text{output} = \text{input} + \text{F}(\text{input})
+\]
+Above equation represents the skip connection (identity mapping).
+
+\[
+\text{Conv}(x, W) = \sum_{i=1}^{N} x_i \ast W_i + b
+\]
+This just shows the basic convolutional block.
+
+\[
+\text{output} = \text{ReLU}(\text{BN}(\text{Conv}(\text{ReLU}(\text{BN}(\text{input})))))
+\]
+The entire residual block can be represented by the above equation.
+
+\subsection{Diagrams}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{resnet.png}
+    \caption{ResNet Architecture}
+    \label{fig:resnet_arch}
+\end{figure}
+The ResNet architecture is shown in Figure \ref{fig:resnet_arch}. It contains a basic block followed by 4 residual blocks. The skip connections are added to the output of the residual blocks.
+
+
+\subsection{Pseudocodes}
+\begin{algorithm}[H]
+  \caption{Basic Block for ResNet}
+  \begin{algorithmic}[1]
+    \Procedure{BasicBlock}{in\_planes, planes, stride}
+      \State expansion $\gets 1$
+      \State
+      \State Initialize: conv1, bn1, conv2, bn2
+      \State
+      \State $x \gets$ Conv2d(in\_planes, planes, kernel\_size=3, stride=stride, padding=1, bias=False) \Comment{Initialize conv1}
+      \State $x \gets$ BN(x) \Comment{Apply Batch Normalization}
+      \State $x \gets$ ReLU(x) \Comment{Apply ReLU activation}
+      \State
+      \State $x \gets$ Conv2d(planes, planes, kernel\_size=3, stride=1, padding=1, bias=False) \Comment{Initialize conv2}
+      \State $x \gets$ BN(x) \Comment{Apply Batch Normalization}
+      \State
+      \State \textbf{if} stride $\neq 1$ or in\_planes $\neq$ expansion $\cdot$ planes:
+      \State \hspace{1cm} $shortcut \gets$ Conv2d(in\_planes, expansion $\cdot$ planes, kernel\_size=1, stride=stride, bias=False) \Comment{Initialize shortcut}
+      \State \hspace{1cm} $shortcut \gets$ BN(shortcut) \Comment{Apply Batch Normalization}
+      \State
+      \State $x \gets$ $x +$ shortcut \Comment{Add shortcut connection}
+      \State $x \gets$ ReLU(x) \Comment{Apply ReLU activation}
+      \State
+      \State \textbf{return} x \Comment{Return the output}
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[H]
+  \caption{ResNet}
+  \begin{algorithmic}[1]
+    \Procedure{ResNet}{input\_channels, block, num\_blocks, num\_classes}
+      \State in\_planes $\gets 64$
+      \State
+      \State Initialize: conv1, bn1, layer1, layer2, layer3, layer4, max\_pool, linear
+      \State
+      \State $x \gets$ Conv1(input\_channels, 64, kernel\_size=3, stride=1, padding=1) \Comment{Initialize conv1}
+      \State $x \gets$ BN(x) \Comment{Apply Batch Normalization}
+      \State $x \gets$ ReLU(x) \Comment{Apply ReLU activation}
+      \State
+      \State $x \gets$ layer1(x) \Comment{Apply layer1}
+      \State $x \gets$ layer2(x) \Comment{Apply layer2}
+      \State $x \gets$ layer3(x) \Comment{Apply layer3}
+      \State $x \gets$ layer4(x) \Comment{Apply layer4}
+      \State
+      \State $x \gets$ MaxPool(x) \Comment{Apply Max Pooling}
+      \State $x \gets$ Flatten(x) \Comment{Flatten the output}
+      \State $x \gets$ Linear(x, num\_classes) \Comment{Apply Linear layer for classification}
+      \State
+      \State \textbf{return} x \Comment{Return the output}
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \caption{\_make\_layer}
+  \begin{algorithmic}[3]
+    \Procedure{\_make\_layer}{block, planes, num\_blocks, stride}
+      \State Initialize strides and layers
+      \State
+      \For {stride in strides}
+        \State Add block to layers
+        \State Update in\_planes
+      \EndFor
+      \State
+      \State \textbf{return} layers
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+
+\subsection{Temporal Net Algorithm}
+Another algorithm we implemented was using TCN (Temporal Convolutional Networks) to classify EEG signals. Literature showed that the temporal features in the EEG data gave important information on whether the EEG is normal or abnormal.
+
+\begin{enumerate}
+    \item The Temporal Net Algorithm used data that was already preprocessed and saved in NPZ file format.
+    \item The model used causal convolutions to capture the temporal dependencies in the EEG data.
+    \item The model used dilated convolutions to increase the receptive field of the network.
+    \item The model used a softmax classifier to classify the EEG data.
+\end{enumerate}
+
+\subsection{Equations}
+\[
+y_t = \sum_{k=1}^{K} w_k \cdot x_{t-k}
+\]
+This equation represents the operation of a temporal convolutional layer, where \( y_t \) is the output at time step \( t \), \( x_{t-k} \) is the input at time step \( t-k \), \( w_k \) are the convolutional weights, and \( K \) is the kernel size.
+
+\[
+y_t = \sum_{k=1}^{K} w_k \cdot x_{(d \cdot t) - k}
+\]
+In this equation, \( d \) is the dilation factor, which controls the spacing between elements in the convolutional kernel.
+
+\subsection{Diagrams}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{temporal.png}
+    \caption{Temporal Net Block Architecture}
+    \label{fig:temporal_arch}
+\end{figure}
+The Temporal block is shown in Figure \ref{fig:temporal_arch}. This shows how time based data is collected from previous layers and input into the next layers.
+
+\subsection{Pseudocodes}
+\begin{algorithm}[H]
+  \caption{CausalConv1d}
+  \begin{algorithmic}[1]
+    \Procedure{CausalConv1d}{in\_channels, out\_channels, kernel\_size, dilation=1}
+      \State \textbf{Input:} in\_channels, out\_channels, kernel\_size, dilation
+      \State \textbf{Output:} Causal convolution layer
+
+      \State Calculate padding: padding $\gets$ (kernel\_size - 1) * dilation
+
+      \State Initialize convolution layer: conv $\gets$ Conv1d(in\_channels, out\_channels, kernel\_size, padding=padding, dilation=dilation)
+
+      \State \textbf{return} conv
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \caption{TcnEEGModel Architecture}
+  \begin{algorithmic}[1]
+    \Procedure{TcnEEGModel}{in\_channels, input\_features, output\_size}
+      \State \textbf{Input:} in\_channels, input\_features, output\_size
+      \State \textbf{Output:} TCN-based EEG model
+      
+      \State Initialize conv1 with Conv1d(in\_channels, 32, kernel\_size=3, padding=2, dilation=1)
+      \State Initialize conv2 with Conv1d(in\_channels, 32, kernel\_size=3, padding=4, dilation=2)
+      \State Initialize residual1 with Conv1d(in\_channels, 64, kernel\_size=1)
+      \State Initialize conv3 with Conv1d(in\_channels, 32, kernel\_size=3, padding=8, dilation=4)
+      \State Initialize conv4 with Conv1d(in\_channels, 32, kernel\_size=3, padding=16, dilation=8)
+      \State Initialize residual2 with Conv1d(64, 32, kernel\_size=1)
+      \State Initialize linear with Linear(64, 1)
+      
+      \State \textbf{return} TCN-based EEG model
+
+      \State \textbf{Forward Pass:}
+      \State \hspace{0.5cm} residual = src
+      
+      \State \hspace{0.5cm} src = conv1(src)
+      \State \hspace{0.5cm} src = conv2(src)
+      \State \hspace{0.5cm} src += residual1(residual) \Comment{Residual connection}
+      \State \hspace{0.5cm} residual = src
+      
+      \State \hspace{0.5cm} src = conv3(src)
+      \State \hspace{0.5cm} src = conv4(src)
+      \State \hspace{0.5cm} src += residual2(residual) \Comment{Residual connection}
+      
+      \State \hspace{0.5cm} src = src.squeeze(1)
+      \State \hspace{0.5cm} src = src.permute(0,2,1)
+      \State \hspace{0.5cm} src = torch.mean(src, dim=1)
+      \State \hspace{0.5cm} src = linear(src)
+      \State \hspace{0.5cm} src = torch.sigmoid(src)
+      \State \hspace{0.5cm} \textbf{return} src \Comment{Returns the output of the model}
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+
+
+
+
 \subsection{SCNet Algorithm} 
 \begin{enumerate}
   \item The first step of the algorithm involves preprocessing the raw EEG recordings to make them suitable for training. The preprocessing steps involve:
