@@ -12,6 +12,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{graphicx}
+\usepackage{tikz}
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
@@ -19,34 +20,34 @@
 \usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+    \usepackage{unicode-math}
+    \defaultfontfeatures{Scale=MatchLowercase}
+    \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+    \usepackage[]{microtype}
+    \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
+    \IfFileExists{parskip.sty}{%
+        \usepackage{parskip}
+    }{% else
+        \setlength{\parindent}{0pt}
     \setlength{\parskip}{6pt plus 2pt minus 1pt}}
 }{% if KOMA class
-  \KOMAoptions{parskip=half}}
+\KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
@@ -55,31 +56,31 @@
 \newlength{\cslentryspacingunit} % times entry-spacing
 \setlength{\cslentryspacingunit}{\parskip}
 \newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
-  \fi
-  % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
+{% don't indent paragraphs
+    \setlength{\parindent}{0pt}
+    % turn on hanging indent if param 1 is 1
+    \ifodd #1
+        \let\oldpar\par
+        \def\par{\hangindent=\cslhangindent\oldpar}
+    \fi
+    % set entry spacing
+    \setlength{\parskip}{#2\cslentryspacingunit}
+}%
+{}
 \usepackage{calc}
 \newcommand{\CSLBlock}[1]{#1\hfill\break}
 \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 \ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
+    \usepackage{selnolig}  % disable illegal ligatures
 \fi
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
+    hidelinks,
+pdfcreator={LaTeX via pandoc}}
 
 % Title
 \title{\textbf{Design \& Analysis of Algorithms Report \\ \vspace{5mm} EEG classification using Deep Learning Algorithms}}
@@ -99,18 +100,249 @@ Electroencephalography (EEG) is a non-invasive method used to record electrical 
 \subsection{Selection of Algorithm}
 For the classification of EEG recordings, we have looked into many architectures like ResNet 18 and Temporal Networks, but among them, SCNet seems to give the best results according to literature. So we have decided to implement this architecture for this task. The model will be trained on the TUH EEG Corpus, taken from Temple University, which is one of the largest publicly available dataset of EEG Recordings.
 
-\subsection{Steps}
-The project will be divided into the following steps:
-\begin{enumerate}
-    \item Data Collection: Collect EEG files from the TUH EEG Corpus.
-    \item Data Preprocessing: Preprocess the EEG files to get the required format.
-    \item Feature Extraction: Extract features from the EEG files.
-    \item Model Training: Train the model using the extracted features.
-    \item Model Evaluation: Evaluate the model using various metrics like accuracy.
-\end{enumerate}
+\subsection{Timeline}
+The project is estimated to take a further of 2-3 months to be completely finalized. However, our first model of SCNet had been prepared and trained upon.
+The timeline for the project is as follows:
+
+\begin{center}
+\begin{tikzpicture}
+        
+\draw (0,0) -- (12,0);
+\foreach \x in {1,4,7,10}
+    \draw (\x cm,3pt) -- (\x cm,-3pt);
+
+
+% Adding All the events
+\draw (1,0) node[below=3pt] {\scriptsize End of May} node[above=3pt, text width=3cm, align=center] {\tiny Initital Research Completed};
+\draw (4,0) node[below=3pt] {\scriptsize Mid June} node[above=3pt, text width=3cm, align=center] {\tiny Literature Models Reviewed and Tested};
+\draw (7,0) node[below=3pt] {\scriptsize End of June} node[above=3pt, text width=3cm, align=center] {\tiny Initial Models drafted and tested};
+\draw (10,0) node[below=3pt] {\scriptsize July} node[above=3pt, text width=3cm, align=center] {\tiny Comparison of Models and Final Model Selection};
+
+
+\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+    \item \textbf{End of May:} The initital research on EEG Classification using deep learning technique is already complete.
+    \item A single model has also been prepared in tensorflow replicating the SCNet implementation.
+    \item \textbf{June Beginning:} At the start of june, most models that are present in the literature will be replicated and tested locally on multiple datasets.
+    \item \textbf{Mid June:} New implementations of the model will be finalized and worked upon. They will also be tested on multiple datasets.
+    \item \textbf{End of June:} The models will be compared to find the best performing models and to evaluate the results.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Contributions} 
-\subsection{Algorithm} 
+
+\subsection{ResNet18 Algorithm}
+In most of the algorithms that are used to classify EEG signals, it was found out that features from different levels of abstractions seemed to be useful to accurately classify the EEG data. Hence, for this purpose, we decided to implement the ResNet18 architecture to classify our EEG data.
+\begin{enumerate}
+    \item The ResNet Algorithm used data that was already preprocessed and saved in NPZ file format.
+    \item The model contained a basic block that had 2 convolutional layers, followed by a batch normalization layer and a ReLU activation function.
+    \item The model then contained 4 residual blocks, each containing 2 convolutional layers, followed by a batch normalization layer and a ReLU activation function.
+    \item The skip connections were added to the output of the residual blocks.
+\end{enumerate}
+
+\subsection{Equations}
+\[
+\text{output} = \text{input} + \text{F}(\text{input})
+\]
+Above equation represents the skip connection (identity mapping).
+
+\[
+\text{Conv}(x, W) = \sum_{i=1}^{N} x_i \ast W_i + b
+\]
+This just shows the basic convolutional block.
+
+\[
+\text{output} = \text{ReLU}(\text{BN}(\text{Conv}(\text{ReLU}(\text{BN}(\text{input})))))
+\]
+The entire residual block can be represented by the above equation.
+
+\subsection{Diagrams}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{resnet.png}
+    \caption{ResNet Architecture}
+    \label{fig:resnet_arch}
+\end{figure}
+The ResNet architecture is shown in Figure \ref{fig:resnet_arch}. It contains a basic block followed by 4 residual blocks. The skip connections are added to the output of the residual blocks.
+
+
+\subsection{Pseudocodes}
+\begin{algorithm}[H]
+  \caption{Basic Block for ResNet}
+  \begin{algorithmic}[1]
+    \Procedure{BasicBlock}{in\_planes, planes, stride}
+      \State expansion $\gets 1$
+      \State
+      \State Initialize: conv1, bn1, conv2, bn2
+      \State
+      \State $x \gets$ Conv2d(in\_planes, planes, kernel\_size=3, stride=stride, padding=1, bias=False) \Comment{Initialize conv1}
+      \State $x \gets$ BN(x) \Comment{Apply Batch Normalization}
+      \State $x \gets$ ReLU(x) \Comment{Apply ReLU activation}
+      \State
+      \State $x \gets$ Conv2d(planes, planes, kernel\_size=3, stride=1, padding=1, bias=False) \Comment{Initialize conv2}
+      \State $x \gets$ BN(x) \Comment{Apply Batch Normalization}
+      \State
+      \State \textbf{if} stride $\neq 1$ or in\_planes $\neq$ expansion $\cdot$ planes:
+      \State \hspace{1cm} $shortcut \gets$ Conv2d(in\_planes, expansion $\cdot$ planes, kernel\_size=1, stride=stride, bias=False) \Comment{Initialize shortcut}
+      \State \hspace{1cm} $shortcut \gets$ BN(shortcut) \Comment{Apply Batch Normalization}
+      \State
+      \State $x \gets$ $x +$ shortcut \Comment{Add shortcut connection}
+      \State $x \gets$ ReLU(x) \Comment{Apply ReLU activation}
+      \State
+      \State \textbf{return} x \Comment{Return the output}
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[H]
+  \caption{ResNet}
+  \begin{algorithmic}[1]
+    \Procedure{ResNet}{input\_channels, block, num\_blocks, num\_classes}
+      \State in\_planes $\gets 64$
+      \State
+      \State Initialize: conv1, bn1, layer1, layer2, layer3, layer4, max\_pool, linear
+      \State
+      \State $x \gets$ Conv1(input\_channels, 64, kernel\_size=3, stride=1, padding=1) \Comment{Initialize conv1}
+      \State $x \gets$ BN(x) \Comment{Apply Batch Normalization}
+      \State $x \gets$ ReLU(x) \Comment{Apply ReLU activation}
+      \State
+      \State $x \gets$ layer1(x) \Comment{Apply layer1}
+      \State $x \gets$ layer2(x) \Comment{Apply layer2}
+      \State $x \gets$ layer3(x) \Comment{Apply layer3}
+      \State $x \gets$ layer4(x) \Comment{Apply layer4}
+      \State
+      \State $x \gets$ MaxPool(x) \Comment{Apply Max Pooling}
+      \State $x \gets$ Flatten(x) \Comment{Flatten the output}
+      \State $x \gets$ Linear(x, num\_classes) \Comment{Apply Linear layer for classification}
+      \State
+      \State \textbf{return} x \Comment{Return the output}
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \caption{\_make\_layer}
+  \begin{algorithmic}[3]
+    \Procedure{\_make\_layer}{block, planes, num\_blocks, stride}
+      \State Initialize strides and layers
+      \State
+      \For {stride in strides}
+        \State Add block to layers
+        \State Update in\_planes
+      \EndFor
+      \State
+      \State \textbf{return} layers
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+
+\subsection{Temporal Net Algorithm}
+Another algorithm we implemented was using TCN (Temporal Convolutional Networks) to classify EEG signals. Literature showed that the temporal features in the EEG data gave important information on whether the EEG is normal or abnormal.
+
+\begin{enumerate}
+    \item The Temporal Net Algorithm used data that was already preprocessed and saved in NPZ file format.
+    \item The model used causal convolutions to capture the temporal dependencies in the EEG data.
+    \item The model used dilated convolutions to increase the receptive field of the network.
+    \item The model used a softmax classifier to classify the EEG data.
+\end{enumerate}
+
+\subsection{Equations}
+\[
+y_t = \sum_{k=1}^{K} w_k \cdot x_{t-k}
+\]
+This equation represents the operation of a temporal convolutional layer, where \( y_t \) is the output at time step \( t \), \( x_{t-k} \) is the input at time step \( t-k \), \( w_k \) are the convolutional weights, and \( K \) is the kernel size.
+
+\[
+y_t = \sum_{k=1}^{K} w_k \cdot x_{(d \cdot t) - k}
+\]
+In this equation, \( d \) is the dilation factor, which controls the spacing between elements in the convolutional kernel.
+
+\subsection{Diagrams}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{temporal.png}
+    \caption{Temporal Net Block Architecture}
+    \label{fig:temporal_arch}
+\end{figure}
+The Temporal block is shown in Figure \ref{fig:temporal_arch}. This shows how time based data is collected from previous layers and input into the next layers.
+
+\subsection{Pseudocodes}
+\begin{algorithm}[H]
+  \caption{CausalConv1d}
+  \begin{algorithmic}[1]
+    \Procedure{CausalConv1d}{in\_channels, out\_channels, kernel\_size, dilation=1}
+      \State \textbf{Input:} in\_channels, out\_channels, kernel\_size, dilation
+      \State \textbf{Output:} Causal convolution layer
+
+      \State Calculate padding: padding $\gets$ (kernel\_size - 1) * dilation
+
+      \State Initialize convolution layer: conv $\gets$ Conv1d(in\_channels, out\_channels, kernel\_size, padding=padding, dilation=dilation)
+
+      \State \textbf{return} conv
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \caption{TcnEEGModel Architecture}
+  \begin{algorithmic}[1]
+    \Procedure{TcnEEGModel}{in\_channels, input\_features, output\_size}
+      \State \textbf{Input:} in\_channels, input\_features, output\_size
+      \State \textbf{Output:} TCN-based EEG model
+      
+      \State Initialize conv1 with Conv1d(in\_channels, 32, kernel\_size=3, padding=2, dilation=1)
+      \State Initialize conv2 with Conv1d(in\_channels, 32, kernel\_size=3, padding=4, dilation=2)
+      \State Initialize residual1 with Conv1d(in\_channels, 64, kernel\_size=1)
+      \State Initialize conv3 with Conv1d(in\_channels, 32, kernel\_size=3, padding=8, dilation=4)
+      \State Initialize conv4 with Conv1d(in\_channels, 32, kernel\_size=3, padding=16, dilation=8)
+      \State Initialize residual2 with Conv1d(64, 32, kernel\_size=1)
+      \State Initialize linear with Linear(64, 1)
+      
+      \State \textbf{return} TCN-based EEG model
+
+      \State \textbf{Forward Pass:}
+      \State \hspace{0.5cm} residual = src
+      
+      \State \hspace{0.5cm} src = conv1(src)
+      \State \hspace{0.5cm} src = conv2(src)
+      \State \hspace{0.5cm} src += residual1(residual) \Comment{Residual connection}
+      \State \hspace{0.5cm} residual = src
+      
+      \State \hspace{0.5cm} src = conv3(src)
+      \State \hspace{0.5cm} src = conv4(src)
+      \State \hspace{0.5cm} src += residual2(residual) \Comment{Residual connection}
+      
+      \State \hspace{0.5cm} src = src.squeeze(1)
+      \State \hspace{0.5cm} src = src.permute(0,2,1)
+      \State \hspace{0.5cm} src = torch.mean(src, dim=1)
+      \State \hspace{0.5cm} src = linear(src)
+      \State \hspace{0.5cm} src = torch.sigmoid(src)
+      \State \hspace{0.5cm} \textbf{return} src \Comment{Returns the output of the model}
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+
+
+
+
+\subsection{SCNet Algorithm} 
 \begin{enumerate}
   \item The first step of the algorithm involves preprocessing the raw EEG recordings to make them suitable for training. The preprocessing steps involve:
   \begin{itemize}
@@ -194,6 +426,31 @@ Figure \ref{fig:model} shows that the entire SCNet architecture, with Average an
         \State Output Format: The EEG data with concatenated GAP, GMP, and GSP
         \State
 
+        \State Output $\gets$ \Call{Preprocess}{Raw EEG} \Comment{Preprocess the Raw EEG}
+        \State Output $\gets$ \Call{SpatialFeatures}{Output}
+        \State Output $\gets$ \Call{TemporalFeatures}{Output}
+        \State Class $\gets$ \Call{Classify}{Output}
+        \State \textbf{return} Class\Comment{Returns the class of the classified EEG}
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+    \caption{Temporal Net Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{Classify}{Raw EEG} \Comment{The Raw EEG is input}
+        \State Total Channels $\gets 21$
+        \State Input Format: EEG data Channels $[e_i]$ where $i \gets 0$ to $21$
+        \State $e_i \gets [e_j]$ where $j \gets 0$ to $n$ where $n$ is the number of timestamps
+        \State 
+        \State Output Format: Class of the EEG in binary (Abnormal/Normal)
+        \State
+
+        \State Output $\gets$ \Call{Preprocess}{Raw EEG} \Comment{Preprocess the Raw EEG}
+        \State Output $\gets$ \Call{TemporalFeatures}{Output}
+        \State Class $\gets$ \Call{Classify}{Output}
+        \State \textbf{return} Class\Comment{Returns the class of the classified EEG}
+        \EndProcedure
         \State GAP out $\gets$ \Call{GAP}{Preprocessed EEG} \Comment{Global Average Pooling}
         \State GMP out $\gets$ \Call{GMP}{Preprocessed EEG} \Comment{Global Max Pooling}
         \State GSP out $\gets$ \Call{GSP}{Preprocessed EEG} \Comment{Global Standard Deviation Pooling}
@@ -240,7 +497,7 @@ Figure \ref{fig:model} shows that the entire SCNet architecture, with Average an
           \State \textbf{return} $[o_{ij}]$ \Comment{Returns the output after applying ReLU}
     \EndProcedure
     \end{algorithmic}
-    
+
 \end{algorithm}
 
 \begin{algorithm}[H]
@@ -279,9 +536,10 @@ Figure \ref{fig:model} shows that the entire SCNet architecture, with Average an
             \State Output $\gets$ \Call{Concat}{data, x1, x2} \Comment{Concatenate the result at all three stages}
             \State \textbf{return} Output \Comment{Returns the output}
         \EndProcedure
-        \end{algorithmic}
+
+    \end{algorithmic}
+\end{algorithm}
         
-    \end{algorithm}
 
     \begin{algorithm}[H]
       \caption{Softmax Layer}
@@ -348,12 +606,12 @@ In conclusion, the SCNet model has been chosen for the classification of EEG fil
 \section{References}
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-WU2023105059}{}}%
-Wu, Tao, Yujie Fan, Yunning Zhong, Xiu Cheng, Xiangzeng Kong, and Lifei
-Chen. 2023. {``SCNet: A Spatial Feature Fused Convolutional Network for
-Multi-Channel EEG Pathology Detection.''} \emph{Biomedical Signal
-Processing and Control} 86: 105059.
-\url{https://doi.org/10.1016/j.bspc.2023.105059}.
+    \leavevmode\vadjust pre{\hypertarget{ref-WU2023105059}{}}%
+    Wu, Tao, Yujie Fan, Yunning Zhong, Xiu Cheng, Xiangzeng Kong, and Lifei
+    Chen. 2023. {``SCNet: A Spatial Feature Fused Convolutional Network for
+    Multi-Channel EEG Pathology Detection.''} \emph{Biomedical Signal
+    Processing and Control} 86: 105059.
+    \url{https://doi.org/10.1016/j.bspc.2023.105059}.
 
 \end{CSLReferences}
 
